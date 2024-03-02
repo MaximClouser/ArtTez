@@ -1,13 +1,9 @@
-"use client";
-// import { useEffect } from 'react';
 import { useState } from "react";
 import { TezosToolkit } from "@taquito/taquito";
-// import "./App.css";
+import "./App.css";
 import ConnectButton from "./components/ConnectWallet";
 import Transfer from "./components/Transfer";
 import { BeaconWallet } from "@taquito/beacon-wallet";
-
-
 
 const App = () => {
   const [Tezos] = useState<TezosToolkit>(
@@ -26,6 +22,7 @@ const App = () => {
     default: return <Transfer
       Tezos={Tezos}
     />;
+
   }
 };
 
