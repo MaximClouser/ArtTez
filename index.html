@@ -1,0 +1,78 @@
+<html>
+
+<head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <title>Demo</title>
+</head>
+
+<body style="margin: 0; padding: 0; font-family: Arial, sans-serif;">
+
+  <header style="background-color: #ffffff; padding:25px;">
+    <div class="is-size-5"><strong>Demo</strong></div>
+  </header>
+
+  <main>
+
+  <div style="background-color: #f0f0f0; padding: 50px;">
+
+  <div class="columns has-text-centered">
+    
+    <div class="column">
+        <form action="dummy-page.html"> <!-- Replace to hit the smart contract through t -->
+            <div>
+                <label for="ownerAddress">Owner's Address:</label><br>
+                <input type="text" id="ownerAddress" name="ownerAddress"><br>
+            </div>
+            <div>
+                <label for="temporaryAddress">Temporary Address:</label><br>
+                <input type="text" id="temporaryAddress" name="temporaryAddress"><br>
+            </div>
+            <div>
+                <label for="royaltyPercentage">Royalty Percentage:</label><br>
+                <select id="royaltyPercentage" name="royaltyPercentage">
+                    <option value="10">5%</option>
+                    <option value="10">10%</option>
+                    <option value="20">15%</option>
+                    <option value="30">20%</option>
+                    <option value="30">25%</option>
+                    <option value="30">30%</option>
+                </select><br>
+            </div>
+            <div style="height:30px;"></div>
+            <div>
+                <button id="submit-button" class="button is-black">Submit</button>
+            </div>
+        </form>
+    </div>
+
+  </div>
+
+  </div>
+
+  </main>
+
+
+  <footer class="footer" style="padding: 30px;">
+    <div class="columns has-text-centered">  
+      
+      <div class="column">
+        <strong>Demo</strong>
+        <p>&copy; 2010-2020</p>
+        <p>Privacy — Terms</p>
+      </div>
+
+      <div class="column">
+        <strong>Follow us on</strong>
+        <p>Instagram</p>
+        <p>Facebook</p>
+      </div>
+  
+    </div>
+     
+  </footer>
+
+  <script src="index.js"></script>
+
+</body>
+
+</html>
