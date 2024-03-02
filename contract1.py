@@ -27,7 +27,8 @@ class TemporarilyLendableNFT(sp.Contract):
     @sp.entry_point
     def distribute_royalties(self, params):
         #TODO: implement the logic to transfer tokens/funds
-        sp.verify(sp.sender == self.data.admin, message="Unauthorized")
+    
+        # sp.verify(sp.sender == self.data.admin, message="Unauthorized")
         
         royalty_info = self.data.royalties[params.token_id]
         original_owner = royalty_info.originalOwner
