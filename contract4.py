@@ -16,7 +16,7 @@ def main():
         @sp.entrypoint
         def transfer_temporary_ownership(self, params):
             assert sp.sender == self.data.ownership[params.token_id] # Not the owner
-            assert ~self.data.tempOwnership.contains(params.token_id) # Already lent
+            assert not self.data.tempOwnership.contains(params.token_id) # Already lent
             
             self.data.tempOwnership[params.token_id] = (params.new_owner, sp.add_days(sp.now, params.duration))
             print("DONE")
