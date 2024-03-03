@@ -1,0 +1,10 @@
+parameter (list %receive_balances (pair (pair %request (address %owner) (nat %token_id)) (nat %balance)));
+storage   (list (pair (pair %request (address %owner) (nat %token_id)) (nat %balance)));
+code
+  {
+    CAR;        # @parameter
+    # == receive_balances ==
+    # self.data.last_received_balances = params # @parameter
+    NIL operation; # list operation : @parameter
+    PAIR;       # pair (list operation) @parameter
+  };

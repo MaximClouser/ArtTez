@@ -1,0 +1,1 @@
+sp.record(administrator = sp.address('tz1hdQscorfqMzFqYxnrApuS5i6QSTuoAp3w'), ledger = {}, metadata = {'' : sp.bytes('0x68747470732f2f6578616d706c652e636f6d')}, next_token_id = 0, operators = {}, supply = {}, token_metadata = {})
