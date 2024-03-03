@@ -18,7 +18,7 @@ def main():
             assert sp.sender == self.data.ownership[params.token_id] # Not the owner
             assert ~self.data.tempOwnership.contains(params.token_id) # Already lent
             
-            self.data.tempOwnership[params.token_id] = sp.record(owner=params.new_owner, expiration=sp.now.add_seconds(params.duration))
+            self.data.tempOwnership[params.token_id] = (params.new_owner, sp.add_days(sp.now, params.duration))
             print("DONE")
 
         @sp.entrypoint
