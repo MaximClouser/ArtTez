@@ -23,5 +23,14 @@ Run:
 `npm run dev`  
 
 
-### Step1: Connect wallet
-![Example Image](images/wallet_prompt.png)
+### Step1: Click connect wallet  
+![Example Image](images/connect_wallet.png)  
+
+### Step2: Connect your waller  
+![Example Image](images/wallet_prompt.png)  
+
+### Step3: Confirm your wallet connection  
+![Example Image](images/confirm_connection.png)  
+
+### Step4: Demo transfer  
+![Example Image](images/demo.png)  
