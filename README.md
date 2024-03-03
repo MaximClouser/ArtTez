@@ -32,7 +32,7 @@ Run:
 ![Example Image](images/mclaren.png)  
 ![Example Image](images/phonecase.png)  
 
-### Stake
+### Stake your NFT
 ![Example Image](images/stake.png)  
 
 
