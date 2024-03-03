@@ -26,7 +26,7 @@ def main():
         applications please refer to FA2_lib.
         """
 
-        def __init__(self, administrator, metadata, owner_address, token_id, royalty):
+        def __init__(self, administrator, metadata):
             self.data.administrator = administrator
             self.data.ledger = sp.cast(
                 sp.big_map(), sp.big_map[sp.pair[sp.address, sp.nat], sp.nat]
@@ -53,47 +53,50 @@ def main():
                 ],
             )
 
-            # TODO: pass metadata_base as an argument
-            # metadata_base["views"] = [
-            #     self.all_tokens,
-            #     self.get_balance,
-            #     self.is_operator,
-            #     self.total_supply,
-            # ]
-            # self.init_metadata("metadata_base", metadata_base)
+            # self.data.ownership = {sp.Nat(0)}
+            # self.data.tempOwnership = {} # tokenID: (new_add, duration)
+            # self.data.royalties = {}
 
-            self.data.ownership = {token_id: owner_address}
-            self.data.tempOwnership = {} # tokenID: (new_add, duration)
-            self.data.royalties = {token_id: (royalty, owner_address)}
+            self.data.ownership = {0: 'max'}
+            self.data.tempOwnership = {0: 'max'}
+            self.data.royalties = {0: 0}
 
-        # Adding funcs
+
+            # self.data.ownership = sp.big_map(tkey=sp.TNat, tvalue=sp.TAddress)
+            # self.data.tempOwnership = sp.big_map(tkey=sp.TNat, tvalue=sp.TAddress)
+            # self.data.royalties = sp.big_map(tkey=sp.TNat, tvalue=sp.TNat) 
+
+            self.data.expiration = sp.add_days(sp.now, 5) # 5 days from now
+
+
+        @sp.entrypoint
+        def set_ownership(self, params):
+            self.data.ownership[params.token_id] = params.owner_address
+
+        @sp.entrypoint
+        def set_royalites(self, params):
+            self.data.royalties[params.token_id] = params.royalty
+
         @sp.entrypoint
         def transfer_temporary_ownership(self, params):
             assert sp.sender == self.data.ownership[params.token_id] # Not the owner
-            assert ~self.data.tempOwnership.contains(params.token_id) # Already lent
+            assert not self.data.tempOwnership.contains(params.token_id) # Already lent
             
-            self.data.tempOwnership[params.token_id] = sp.record(owner=params.new_owner, expiration=sp.now.add_seconds(params.duration))
+            self.data.tempOwnership[params.token_id] = params.new_owner
 
         @sp.entrypoint
         def return_ownership(self, token_id):
-            assert self.data.tempOwnership[token_id].expiration < sp.now # Loan period not ended
+            assert self.data.expiration < sp.now # Loan period not ended
             
             del self.data.tempOwnership[token_id]
 
         @sp.entrypoint
         def distribute_royalties(self, params):
-            royalty_info = self.data.royalties[params.token_id]
-            original_owner = royalty_info[1]
-            royalty_amount = params.amount * royalty_info[1] / 100
-            # print("DONE")
+            royalty = self.data.royalties[params.token_id]
+            original_owner = self.data.ownership[params.token_id]
+            royalty_amount = params.amount * royalty / 100
 
-        @sp.entrypoint
-        def set_royalty_info(self, params):
-            self.data.royalties[params.token_id] = (params.royaltyPercentage, sp.sender)
-            
 
-        # end add funcs
-        
         @sp.entrypoint
         def transfer(self, batch):
             """Accept a list of transfer operations.
@@ -255,3 +258,64 @@ def main():
             self.data.next_token_id = next_token_id
             self.data.ledger = ledger
             self.data.token_metadata = token_metadata
+
+
+
+if "main" in __name__:
+
+    def make_metadata(symbol, name, decimals):
+        """Helper function to build metadata JSON bytes values."""
+        return sp.map(
+            l={
+                "decimals": sp.scenario_utils.bytes_of_string("%d" % decimals),
+                "name": sp.scenario_utils.bytes_of_string(name),
+                "symbol": sp.scenario_utils.bytes_of_string(symbol),
+            }
+        )
+
+    admin = sp.test_account("Administrator")
+    alice = sp.test_account("Alice")
+    tok0_md = make_metadata(name="Token Zero", decimals=1, symbol="Tok0")
+    tok1_md = make_metadata(name="Token One", decimals=1, symbol="Tok1")
+    tok2_md = make_metadata(name="Token Two", decimals=1, symbol="Tok2")
+
+    @sp.add_test()
+    def test():
+        scenario = sp.test_scenario("Test", main)
+        c1 = main.Fa2FungibleMinimal(
+            admin.address, sp.scenario_utils.metadata_of_url("https//example.com")
+        )
+        scenario += c1
+
+    from smartpy.templates import fa2_lib_testing as testing
+
+    kwargs = {
+        "class_": main.Fa2FungibleMinimalTest,
+        "kwargs": {
+            "administrator": admin.address,
+            "metadata": sp.scenario_utils.metadata_of_url("https://example.com"),
+            "ledger": sp.big_map(
+                {
+                    (alice.address, 0): 42,
+                    (alice.address, 1): 42,
+                    (alice.address, 2): 42,
+                }
+            ),
+            "token_metadata": sp.big_map(
+                {
+                    0: sp.record(token_id=0, token_info=tok0_md),
+                    1: sp.record(token_id=1, token_info=tok1_md),
+                    2: sp.record(token_id=2, token_info=tok2_md),
+                }
+            ),
+            "next_token_id": 3,
+        },
+        "ledger_type": "Fungible",
+        "test_name": "",
+        "modules": main,
+    }
+
+    testing.test_core_interfaces(**kwargs)
+    testing.test_transfer(**kwargs)
+    testing.test_owner_or_operator_transfer(**kwargs)
+    testing.test_balance_of(**kwargs)

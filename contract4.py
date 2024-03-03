@@ -13,6 +13,8 @@ def main():
             self.data.royalties = {token_id: (royalty, owner_address)}
 
 
+        
+
         @sp.entrypoint
         def transfer_temporary_ownership(self, params):
             assert sp.sender == self.data.ownership[params.token_id] # Not the owner
