@@ -17,7 +17,7 @@ const Transfer = ({
     if (recipient) {
       setLoading(true);
       try { 
-        console.log("Hello Maxim You suck")
+        console.log("Transfering...")
         const opHash = await transferTemporaryOwnership(
           'tz1NmeKVKn8DfQk3scX3nSQgtbnXeuj9sszd', // Replace with your contract address
           (token_id),               
