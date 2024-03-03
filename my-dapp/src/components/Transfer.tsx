@@ -17,14 +17,14 @@ const Transfer = ({
     if (recipient && token_id && percentage && duration) {
       setLoading(true);
       try { 
-
+        console.log("Hello Maxim You suck")
         const opHash = await transferTemporaryOwnership(
-          'contract_address', // Replace with your contract address
+          'tz1NmeKVKn8DfQk3scX3nSQgtbnXeuj9sszd', // Replace with your contract address
           parseInt(token_id),               
           recipient,
           parseInt(duration),           
         );
-        //console.log(opHash)
+        console.log(opHash)
 
         // If transferTemporaryOwnership is successful, proceed to transfer Tezos
         // const op = await Tezos.wallet
@@ -40,69 +40,61 @@ const Transfer = ({
     }
   };
 
+  // Render your component JSX
   return (
     <div>
-    <header style={{ backgroundColor: '#ffffff', padding: '25px' }}>
-      <div className="is-size-5"><strong>Demo</strong></div>
-    </header>
+      <header style={{ backgroundColor: '#ffffff', padding: '25px' }}>
+        <div className="is-size-5"><strong>Demo</strong></div>
+      </header>
 
-    <div id="transfer-inputs" style={{ padding: '20px' }}>
-      Recipient:   {' '} <input
-        type="text"
-        placeholder="Recipient's Address"
-        value={recipient}
-        onChange={e => setRecipient(e.target.value)}
-      />
-      <br />
-      <div style={{ height: '15px' }}></div>
-      Token ID:   {' '} <input
-        type="number"
-        placeholder="Token ID"
-        value={token_id}
-        onChange={e => setTokenID(e.target.value)}
-      />
-      <br />
-      <div style={{ height: '15px' }}></div>
-      Royalty Percentage:   {' '}
-        <select
-          value={percentage}
-          onChange={e => setPercentage(e.target.value)}
+      <div id="transfer-inputs" style={{ padding: '20px' }}>
+        Recipient:   {' '} <input
+          type="text"
+          placeholder="Recipient's Address"
+          value={recipient}
+          onChange={e => setRecipient(e.target.value)}
+        />
+        <br />
+        <div style={{ height: '15px' }}></div>
+        Token ID:   {' '} <input
+          type="number"
+          placeholder="Token ID"
+          value={token_id}
+          onChange={e => setTokenID(e.target.value)}
+        />
+        <br />
+        <div style={{ height: '15px' }}></div>
+        Royalty Percentage:   {' '}
+          <select
+            value={percentage}
+            onChange={e => setPercentage(e.target.value)}
+          >
+            <option value="5">5%</option>
+            <option value="10">10%</option>
+            <option value="15">15%</option>
+            <option value="20">20%</option>
+            <option value="25">25%</option>
+            <option value="30">30%</option>
+          </select>
+        <br />
+        <div style={{ height: '15px' }}></div>
+        Duration:   {' '} <input
+          type="number"
+          placeholder="Duration (Days)"
+          value={duration}
+          onChange={e => setDuration(e.target.value)}
+        />
+        <br />
+        <div style={{ height: '30px' }}></div>
+        <button id="send-button"
+          className="button"
+          onClick={sendTez} // Use onClick event handler for button click
+          // onSubmit={handleSubmit} // You can use onSubmit event handler for form submission (if needed)
         >
-          <option value="5">5%</option>
-          <option value="10">10%</option>
-          <option value="15">15%</option>
-          <option value="20">20%</option>
-          <option value="25">25%</option>
-          <option value="30">30%</option>
-        </select>
-      <br />
-      <div style={{ height: '15px' }}></div>
-      Duration:   {' '} <input
-        type="number"
-        placeholder="Duration (Days)"
-        value={duration}
-        onChange={e => setDuration(e.target.value)}
-      />
-      <br />
-      <div style={{ height: '30px' }}></div>
-      <button id="send-button"
-        className="button"
-        disabled={!recipient && !token_id && !percentage}
-        onClick={sendTez}
-      >
-        {loading ? (
-          <span>
-            <i className="fas fa-spinner fa-spin"></i>&nbsp; Sending...
-          </span>
-        ) : (
-          <span>
-            <i className="far fa-paper-plane"></i>&nbsp;Send
-          </span>
-        )}
-      </button>
-    </div>
+        </button>
 
-  </div>
+      </div>
+    </div>
   );
 };
 
