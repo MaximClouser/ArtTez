@@ -3,42 +3,44 @@ import smartpy as sp
 # FA2 = sp.io.import_template("FA2.py")
 from templates import fa2_lib as fa2
 
-class TemporarilyLendableNFT(fa2):
-    def __init__(self, admin, config):
-        fa2.__init__(self, config)
+@sp.module
+def main():
+    class TemporarilyLendableNFT(fa2):
+        def __init__(self, admin, config):
+            fa2.__init__(self, config)
 
-        self.init(
-            ownership=sp.map(tkey=sp.TNat, tvalue=sp.TAddress),
-            tempOwnership=sp.map(tkey=sp.TNat, tvalue=sp.TRecord(owner=sp.TAddress, expiration=sp.TTimestamp)),
-            royalties=sp.map(tkey=sp.TNat, tvalue=sp.TRecord(royaltyPercentage=sp.TNat, originalOwner=sp.TAddress)),
-            admin=admin
-        )
+            self.data.ownership=sp.map({'tkey': sp.TNat, 'tvalue': sp.TAddress})
+            
+            self.data.tempOwnership=sp.map(tkey=sp.TNat, tvalue=sp.TRecord(owner=sp.TAddress, expiration=sp.TTimestamp))
+            self.data.royalties=sp.map(tkey=sp.TNat, tvalue=sp.TRecord(royaltyPercentage=sp.TNat, originalOwner=sp.TAddress))
+            self.data.admin=admin
 
-    @sp.entry_point
-    def transfer_temporary_ownership(self, params):
-        sp.verify(sp.sender == self.data.ownership[params.token_id], message="Not the owner")
-        sp.verify(~self.data.tempOwnership.contains(params.token_id), message="Already lent")
-        
-        self.data.tempOwnership[params.token_id] = sp.record(owner=params.new_owner, expiration=sp.now.add_seconds(params.duration))
 
-    @sp.entry_point
-    def return_ownership(self, token_id):
-        sp.verify(self.data.tempOwnership[token_id].expiration < sp.now, message="Loan period not ended")
-        
-        del self.data.tempOwnership[token_id]
+        @sp.entrypoint
+        def transfer_temporary_ownership(self, params):
+            sp.verify(sp.sender == self.data.ownership[params.token_id], message="Not the owner")
+            sp.verify(~self.data.tempOwnership.contains(params.token_id), message="Already lent")
+            
+            self.data.tempOwnership[params.token_id] = sp.record(owner=params.new_owner, expiration=sp.now.add_seconds(params.duration))
 
-    @sp.entry_point
-    def distribute_royalties(self, params):
-        royalty_info = self.data.royalties[params.token_id]
-        original_owner = royalty_info.originalOwner
-        royalty_amount = params.amount * royalty_info.royaltyPercentage // 100
-        
-        sp.log(sp.concat("Distributing ", sp.str(royalty_amount)))
-        sp.log(sp.concat("To ", sp.str(original_owner)))
+        @sp.entrypoint
+        def return_ownership(self, token_id):
+            sp.verify(self.data.tempOwnership[token_id].expiration < sp.now, message="Loan period not ended")
+            
+            del self.data.tempOwnership[token_id]
 
-    @sp.entry_point
-    def set_royalty_info(self, params):
-        self.data.royalties[params.token_id] = sp.record(royaltyPercentage=params.royaltyPercentage, originalOwner=sp.sender)
+        @sp.entrypoint
+        def distribute_royalties(self, params):
+            royalty_info = self.data.royalties[params.token_id]
+            original_owner = royalty_info.originalOwner
+            royalty_amount = params.amount * royalty_info.royaltyPercentage // 100
+            
+            sp.log(sp.concat("Distributing ", sp.str(royalty_amount)))
+            sp.log(sp.concat("To ", sp.str(original_owner)))
+
+        @sp.entrypoint
+        def set_royalty_info(self, params):
+            self.data.royalties[params.token_id] = sp.record(royaltyPercentage=params.royaltyPercentage, originalOwner=sp.sender)
 
     # @sp.entry_point
     # def mint(self, params):
