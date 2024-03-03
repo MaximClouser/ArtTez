@@ -25,7 +25,7 @@ Run:
 ## Frontend UI (wireframe)
 
 ### Front page
-![Example Image](images/front_page.png)  
+![Example Image](images/intro_page.png)  
 
 ### Products
 ![Example Image](images/dress_page.png)  
