@@ -19,10 +19,9 @@ const Transfer = ({
       try { 
         console.log("Transfering...")
         const opHash = await transferTemporaryOwnership(
-          'tz1NmeKVKn8DfQk3scX3nSQgtbnXeuj9sszd', // contract address
-          (token_id),               
+          token_id,               
           recipient,
-          parseInt(duration),           
+          "tz1bcTPoJDSKyKH2NHyxRbZPzZBKZoWHszNb", //OG owner's address          
         );
         console.log(opHash)
       } catch (error) {
