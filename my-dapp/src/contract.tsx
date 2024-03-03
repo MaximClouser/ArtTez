@@ -1,6 +1,6 @@
 import { TezosToolkit } from '@taquito/taquito';
 
-const tezos = new TezosToolkit('https://YOUR_RPC_URL');
+const tezos = new TezosToolkit('KT1TQw4SHVWdV2gtvromK8HrmkNWsx6Sxcj7');
 
 export const transferTemporaryOwnership = async (
     contractAddress: string, // Address of your deployed smart contract

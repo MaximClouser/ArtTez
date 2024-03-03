@@ -53,19 +53,9 @@ def main():
                 ],
             )
 
-            # self.data.ownership = {sp.Nat(0)}
-            # self.data.tempOwnership = {} # tokenID: (new_add, duration)
-            # self.data.royalties = {}
-
-            self.data.ownership = {0: 'max'}
-            self.data.tempOwnership = {0: 'max'}
-            self.data.royalties = {0: 0}
-
-
-            # self.data.ownership = sp.big_map(tkey=sp.TNat, tvalue=sp.TAddress)
-            # self.data.tempOwnership = sp.big_map(tkey=sp.TNat, tvalue=sp.TAddress)
-            # self.data.royalties = sp.big_map(tkey=sp.TNat, tvalue=sp.TNat) 
-
+            self.data.ownership = sp.cast({}, sp.map[sp.int, sp.address])
+            self.data.tempOwnership = sp.cast({}, sp.map[sp.int, sp.address])
+            self.data.royalties = sp.cast({}, sp.map[sp.int, sp.int])
             self.data.expiration = sp.add_days(sp.now, 5) # 5 days from now
 
 
