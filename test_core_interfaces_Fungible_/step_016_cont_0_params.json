@@ -1,0 +1,6 @@
+{
+  "prim": "Pair",
+  "args": [
+    [ { "prim": "Pair", "args": [ { "string": "tz1WxrQuZ4CK1MBUa2GqUWK1yJ4J6EtG1Gwi" }, { "int": "0" } ] } ], { "string": "KT1Tezooo1zzSmartPyzzSTATiCzzzyfC8eF%receive_balances" }
+  ]
+}
