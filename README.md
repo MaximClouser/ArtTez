@@ -22,7 +22,7 @@ Run:
 `cd my-dapp`  
 `npm run dev`  
 
-## Frontend UI (wireframe)
+## Frontend UI (wireframe credit to @Freyadnd)
 
 ### Front page
 ![Example Image](images/intro_page.png)  
