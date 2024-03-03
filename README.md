@@ -22,11 +22,26 @@ Run:
 `cd my-dapp`  
 `npm run dev`  
 
+## Frontend UI (wireframe)
+
+### Front page
+![Example Image](images/front_page.png)  
+
+### Products
+![Example Image](images/dress_page.png)  
+![Example Image](images/mclaren.png)  
+![Example Image](images/phonecase.png)  
+
+### Stake
+![Example Image](images/stake.png)  
+
+
+## Protocol Demo
 
 ### Step1: Click connect wallet  
 ![Example Image](images/connect_wallet.png)  
 
-### Step2: Connect your waller  
+### Step2: Connect your wallet  
 ![Example Image](images/wallet_prompt.png)  
 
 ### Step3: Confirm your wallet connection  
