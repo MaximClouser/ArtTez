@@ -72,16 +72,19 @@ def main():
             assert sp.sender == self.data.ownership[params.token_id] # Not the owner
             assert not self.data.tempOwnership.contains(params.token_id) # Already lent
             
-            self.data.tempOwnership[params.token_id] = params.new_owner
+            self.data.tempOwnership[params.token_id] = params.new_owner # Temp transfer
 
         @sp.entrypoint
         def return_ownership(self, token_id):
             assert self.data.expiration < sp.now # Loan period not ended
-            
-            del self.data.tempOwnership[token_id]
+            del self.data.tempOwnership[token_id] # Return the ownership
 
         @sp.entrypoint
         def distribute_royalties(self, params):
+            """
+            Calculate royalty amount. Can transfer here via another 
+            smart contract.
+            """
             royalty = self.data.royalties[params.token_id]
             original_owner = self.data.ownership[params.token_id]
             royalty_amount = params.amount * royalty / 100
