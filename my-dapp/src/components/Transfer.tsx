@@ -42,31 +42,34 @@ const Transfer = ({
 
   return (
     <div>
-    <header style={{ backgroundColor: '#ffffff', padding: '25px' }}>
-      <div className="is-size-5"><strong>Demo</strong></div>
-    </header>
+      <header style={{ color: '#000000', padding: '25px', textAlign: 'center' }}>
+        <h1 style={{ fontSize: '24px', fontWeight: 'bold', margin: 0 }}>Demo</h1>
+      </header>
 
-    <div id="transfer-inputs" style={{ padding: '20px' }}>
-      Recipient:   {' '} <input
-        type="text"
-        placeholder="Recipient's Address"
-        value={recipient}
-        onChange={e => setRecipient(e.target.value)}
-      />
-      <br />
-      <div style={{ height: '15px' }}></div>
-      Token ID:   {' '} <input
-        type="number"
-        placeholder="Token ID"
-        value={token_id}
-        onChange={e => setTokenID(e.target.value)}
-      />
-      <br />
-      <div style={{ height: '15px' }}></div>
-      Royalty Percentage:   {' '}
+      <div id="transfer-inputs" style={{ padding: '20px', maxWidth: '400px', margin: '0 auto' }}>
+        <label style={{ display: 'block', marginBottom: '10px' }}>Recipient:</label>
+        <input
+          type="text"
+          placeholder="Recipient's Address"
+          value={recipient}
+          onChange={e => setRecipient(e.target.value)}
+          style={{ width: '100%', padding: '10px', marginBottom: '15px', border: '1px solid #ccc', borderRadius: '5px' }}
+        />
+
+        <label style={{ display: 'block', marginBottom: '10px' }}>Token ID:</label>
+        <input
+          type="text"
+          placeholder="Token ID"
+          value={token_id}
+          onChange={e => setTokenID(e.target.value)}
+          style={{ width: '100%', padding: '10px', marginBottom: '15px', border: '1px solid #ccc', borderRadius: '5px' }}
+        />
+
+        <label style={{ display: 'block', marginBottom: '10px' }}>Royalty Percentage:</label>
         <select
           value={percentage}
           onChange={e => setPercentage(e.target.value)}
+          style={{ width: '100%', padding: '10px', marginBottom: '15px', border: '1px solid #ccc', borderRadius: '5px' }}
         >
           <option value="5">5%</option>
           <option value="10">10%</option>
@@ -75,34 +78,46 @@ const Transfer = ({
           <option value="25">25%</option>
           <option value="30">30%</option>
         </select>
-      <br />
-      <div style={{ height: '15px' }}></div>
-      Duration:   {' '} <input
-        type="number"
-        placeholder="Duration (Days)"
-        value={duration}
-        onChange={e => setDuration(e.target.value)}
-      />
-      <br />
-      <div style={{ height: '30px' }}></div>
-      <button id="send-button"
-        className="button"
-        disabled={!recipient && !token_id && !percentage}
-        onClick={sendTez}
-      >
-        {loading ? (
-          <span>
-            <i className="fas fa-spinner fa-spin"></i>&nbsp; Sending...
-          </span>
-        ) : (
-          <span>
-            <i className="far fa-paper-plane"></i>&nbsp;Send
-          </span>
-        )}
-      </button>
-    </div>
 
-  </div>
+        <label style={{ display: 'block', marginBottom: '10px' }}>Duration (Days):</label>
+        <input
+          type="number"
+          placeholder="Duration"
+          value={duration}
+          onChange={e => {
+            const value = parseInt(e.target.value);
+        
+            // Ensure that the duration is not below 0
+            if (!isNaN(value) && value > -1) {
+              setDuration(value);
+            }
+          }}
+          
+          style={{ width: '100%', padding: '10px', marginBottom: '20px', border: '1px solid #ccc', borderRadius: '5px' }}
+        />
+
+        <div style={{ height: '30px' }}></div>
+
+        <button
+          id="send-button"
+          className="button"
+          disabled={!recipient || !token_id || !percentage}
+          onClick={sendTez}
+          style={{ width: '100%', padding: '15px', backgroundColor: '#336699', color: '#ffffff', border: 'none', borderRadius: '5px', cursor: 'pointer' }}
+        >
+          {loading ? (
+            <span>
+              <i className="fas fa-spinner fa-spin"></i>&nbsp; Sending...
+            </span>
+          ) : (
+            <span>
+              <i className="far fa-paper-plane"></i>&nbsp; Send
+            </span>
+          )}
+        </button>
+      </div>
+</div>
+
   );
 };
 
