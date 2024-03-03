@@ -21,3 +21,7 @@ Run:
 
 `cd my-dapp`  
 `npm run dev`  
+
+
+### Step1: Connect wallet
+![Example Image](images/wallet_prompt.png)
