@@ -18,5 +18,6 @@ In short: ArtTez aims to bridge the gap between NFTs and tangible assets to empo
 Stack: Next.js, React, Smartpy, Taquito
 
 Run:
+
 `cd my-dapp`  
 `npm run dev`  

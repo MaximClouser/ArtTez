@@ -21,7 +21,7 @@ const Transfer = ({
         const opHash = await transferTemporaryOwnership(
           token_id,               
           recipient,
-          "tz1bcTPoJDSKyKH2NHyxRbZPzZBKZoWHszNb", //OG owner's address          
+          "tz1bcTPoJDSKyKH2NHyxRbZPzZBKZoWHszNb", //Orignal owner's (dummy) public address          
         );
         console.log(opHash)
       } catch (error) {
