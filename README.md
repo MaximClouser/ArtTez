@@ -13,9 +13,10 @@ the smartpy code that was compiled to Michelson and deployed on the Tezos blockc
 Additionally, this repo includes a demo which allows a user to connect their wallet
 and grant ownership of their NFT for some period of time.
 
+In short: ArtTez aims to bridge the gap between NFTs and tangible assets to empower artists.
+
 Stack: Next.js, React, Smartpy, Taquito
 
-To Run:
-
+Run:
 `cd my-dapp`  
 `npm run dev`  
