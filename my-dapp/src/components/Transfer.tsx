@@ -19,19 +19,12 @@ const Transfer = ({
       try { 
         console.log("Transfering...")
         const opHash = await transferTemporaryOwnership(
-          'tz1NmeKVKn8DfQk3scX3nSQgtbnXeuj9sszd', // Replace with your contract address
+          'tz1NmeKVKn8DfQk3scX3nSQgtbnXeuj9sszd', // contract address
           (token_id),               
           recipient,
           parseInt(duration),           
         );
         console.log(opHash)
-
-        // If transferTemporaryOwnership is successful, proceed to transfer Tezos
-        // const op = await Tezos.wallet
-        //   // .transfer({ to: recipient, parameter: {amount: parseInt(amount), percentage: parseInt(percentage), duratioin:}, mutez: true })
-        //   .transfer({ to: recipient, amount: parseInt(token_id), mutez: true })
-        //   .send();
-        // await op.confirmation();
       } catch (error) {
         console.log(error);
       } finally {
@@ -40,7 +33,7 @@ const Transfer = ({
     }
   };
 
-  // Render your component Tsx
+  // Render component Tsx
   return (
     <div>
       <header style={{ backgroundColor: '#ffffff', padding: '25px' }}>
@@ -73,8 +66,7 @@ const Transfer = ({
         <div style={{ height: '30px' }}></div>
         <button id="send-button"
           className="button"
-          onClick={sendTez} // Use onClick event handler for button click
-          // onSubmit={handleSubmit} // You can use onSubmit event handler for form submission (if needed)
+          onClick={sendTez}
         >
           {loading ? (
             <span>
@@ -87,7 +79,6 @@ const Transfer = ({
            )
         }
         </button>
-
       </div>
     </div>
   );

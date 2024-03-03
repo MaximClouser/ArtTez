@@ -3,7 +3,6 @@ import { TezosToolkit } from '@taquito/taquito';
 const tezos = new TezosToolkit('https://ghostnet.tezos.marigold.dev'); //KT1TQw4SHVWdV2gtvromK8HrmkNWsx6Sxcj7
 
 export const transferTemporaryOwnership = async (
-    // contractAddress: string, // Address of your deployed smart contract
     tokenId: string,         // Token ID as a number
     newOwner: string,        // New owner's address as a string
     duration: number         // Duration in seconds as a number
