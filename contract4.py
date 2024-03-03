@@ -19,7 +19,6 @@ def main():
             assert not self.data.tempOwnership.contains(params.token_id) # Already lent
             
             self.data.tempOwnership[params.token_id] = (params.new_owner, sp.add_days(sp.now, params.duration))
-            print("DONE")
 
         @sp.entrypoint
         def return_ownership(self, token_id):
@@ -32,7 +31,6 @@ def main():
             royalty_info = self.data.royalties[params.token_id]
             original_owner = royalty_info[1]
             royalty_amount = params.amount * royalty_info[1] / 100
-            # print("DONE")
 
         @sp.entrypoint
         def set_royalty_info(self, params):
