@@ -2,8 +2,9 @@ import { useState } from "react";
 import { TezosToolkit } from "@taquito/taquito";
 import { transferTemporaryOwnership } from "../contract.tsx";
 
+
 const Transfer = ({
-  Tezos,
+  Tezos
 }: {
   Tezos: TezosToolkit;
 }): JSX.Element => {
@@ -12,6 +13,7 @@ const Transfer = ({
   const [percentage, setPercentage] = useState<string>("");
   const [duration, setDuration] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
+
  
   const sendTez = async (): Promise<void> => {
     if (recipient) {
@@ -19,10 +21,9 @@ const Transfer = ({
       try { 
         console.log("Transfering...")
         const opHash = await transferTemporaryOwnership(
-          'tz1NmeKVKn8DfQk3scX3nSQgtbnXeuj9sszd', // contract address
-          (token_id),               
-          recipient,
-          parseInt(duration),           
+          token_id,
+          recipient,               
+          'tz1bcTPoJDSKyKH2NHyxRbZPzZBKZoWHszNb', // OG owner's address        
         );
         console.log(opHash)
       } catch (error) {
