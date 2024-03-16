@@ -3,7 +3,7 @@
 ArtTez is an NFT protocol on the Tezos blockchain which allows NFT artists to
 realize value from their NFTs through real-world assets.
 
-The ArtTez protocol allows NFT owners to stake their NFTs to Merchandisers for
+The ArtTez protocol allows NFT owners to stake their NFTs to merchandisers for
 some duration. Merchandisers can then sell products with the NFT design, and the
 artist receives royalties based on these sales. At the end of the agreed time period,
 the full ownership is returned to the artist.
